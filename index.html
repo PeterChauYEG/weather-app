@@ -1,27 +1,25 @@
 <html>
   <head>
     <link rel="stylesheet" href="index.css" type="text/css">
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/weather-icons.css">
     <link rel="stylesheet" href="css/weather-icons-wind.css">
-    <script src="http://code.jquery.com/jquery-1.7.min.js" ></script>
-    <script src="http://code.jquery.com/ui/1.7.0/jquery-ui.js" ></script>
     <script type="text/javascript" src="index.js"></script>
+    <title>Weather App</title>
   </head>
 
   <body>
     <div class="main">
-      <div id="cityName"></div>
-      <div class="weatherBox">
-        <i id="weatherIcon"></i>
-        <span id="currentTemp">-</span>
+      <div id="locationName">loading</div>
+      <div class="tempBox">
+        <i id="weatherIcon" class="wi wi-day-hail"></i>
+        <span id="currentTemp">-5</span>
       </div>
       <div id="moreDetes">
         <div id="description">
-          overcast clouds
+          Maybe rainy, maybe sunny
         </div>
-        <div id="temp_max">-4</div>
-        <div id="temp_min">-10</div>
+        <div id="temp_max">High</div>
+        <div id="temp_min">Low</div>
       </div>
     </div>
   </body>

@@ -3,6 +3,7 @@ body {
 	color: white;
 	font-family: 'Source Sans Pro', sans-serif;
 	text-align: center;
+	transition: background 3s;
 }
 
 .main {
@@ -12,7 +13,7 @@ body {
 	border: 1px solid white;
 }
 
-.weatherBox {
+.tempBox {
   margin: 20px 0px 40px;
 }
 
@@ -21,16 +22,18 @@ body {
   border-top: 1px solid white;
 }
 
-#cityName {
-		font-size: 30px;
+#locationName {
+		font-size: 20px;
 		border-bottom: 1px solid white;
     padding: 30px 0px;
+		text-transform: uppercase;
+		letter-spacing: 4px;
+		font-weight: 100;
 }
 
 #currentTemp {
 	font-size: 150px;
-	font-weight: bold;
-	letter-spacing: -15px;
+	font-weight: 100;
 }
 
 #weatherIcon {
@@ -41,6 +44,7 @@ body {
 #temp_max, #temp_min {
 	font-size: 35px;
 	display:inline-block;
+	margin: 0px 10px;
 }
 
 #temp_max {
@@ -49,4 +53,40 @@ body {
 
 #description {
 	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+
+/* Background colors */
+
+.darkGrey {
+	background: darkgrey;
+}
+
+.sadBlue {
+	background: #1b3654;
+}
+
+.gentleRain {
+	background: #5d89a5;
+}
+
+.bleakWasteland {
+	background: #bbc4ca;
+}
+
+.cantSee {
+	background: #7d7d7d;
+}
+
+.sunny {
+	background: #42c1e2;
+}
+
+.partlyCloudy {
+	background: #669abb;
+}
+
+.cloudy {
+	background: #9cafbb;
 }

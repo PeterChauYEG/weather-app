@@ -1,6 +1,52 @@
 body {
-	background-color: #66a1ee;
-	color: #0a2e5c;
+	background: black;
+	color: white;
 	font-family: 'Source Sans Pro', sans-serif;
 	text-align: center;
+}
+
+.main {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 100px;
+	border: 1px solid white;
+}
+
+.weatherBox {
+  margin: 20px 0px 40px;
+}
+
+#moreDetes {
+	padding: 30px 0px;
+  border-top: 1px solid white;
+}
+
+#cityName {
+		font-size: 30px;
+		border-bottom: 1px solid white;
+    padding: 30px 0px;
+}
+
+#currentTemp {
+	font-size: 150px;
+	font-weight: bold;
+	letter-spacing: -15px;
+}
+
+#weatherIcon {
+	font-size: 100px;
+  margin-right: 30px;
+}
+
+#temp_max, #temp_min {
+	font-size: 35px;
+	display:inline-block;
+}
+
+#temp_max {
+	font-weight: bold;
+}
+
+#description {
+	text-transform: uppercase;
 }

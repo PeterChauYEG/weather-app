@@ -1,16 +1,26 @@
 body {
-	background: black;
-	color: white;
-	font-family: 'Source Sans Pro', sans-serif;
-	text-align: center;
-	transition: background 3s;
+	background: #266894;
+	transition: background 4s;
+}
+
+.gradient {
+	background: linear-gradient(to top right, rgba(0,0,0,0.4), rgba(255,255,255,0), rgba(255,255,255,0.5));
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding-top: 100px;
+
 }
 
 .main {
 	width: 500px;
 	margin: 0 auto;
-	margin-top: 100px;
 	border: 1px solid white;
+	color: white;
+	font-family: 'Source Sans Pro', sans-serif;
+	text-align: center;
 }
 
 .tempBox {

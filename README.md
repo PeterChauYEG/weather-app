@@ -13,6 +13,32 @@ https://www.meetup.com/startupedmonton/events/236854118/
 
 ## Weather Single Page App
 
+### HTML/CSS Webpage
+- Design:
+
+  Before you begin writing code, it is always best to do some planning.
+
+  Think about the information you want to see in your website and where it
+  should live in the page. You can use mockup tools or an archaic analog mockup
+  system like a whiteboard.
+
+  Also consider the colors, fonts, layout.
+
+- HTML and CSS:
+
+  Convert your mockup into HTML and apply the designs with CSS.
+
+- JavaScript:
+
+  Consider making your website functional, making it useful to many users.
+
+  We will make the icons and background dynamic with some basic JavaScript. The
+  code will conditionally assign the weather icon and background based on
+  weather code, provided by OpenWeatherMap.
+
+  Use document.getElementById() to retrieve the HTML element from the DOM. You can
+  apply styles and other attributes to the element, which will render to your page.
+
 ### JavaScript
 - Get the user's location:
   Lets start by figuring out how we can grab a user's location from the web browser.

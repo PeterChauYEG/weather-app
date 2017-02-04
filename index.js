@@ -4,7 +4,7 @@ let data = "This is some test data";
 // define geolocation options
 const geoOptions = {
 	enableHighAccuracy: true,
-	timeout: 5000, // in ms so 5 seconds
+	timeout: 10000, // in ms so 10 seconds
 	maximumAge: 0
 };
 
@@ -178,5 +178,6 @@ function RenderData(data) {
 
 	// now modify the element's inner html
 	// append the data variable
-	dataElement.innerHTML = data;
+
+	dataElement.innerHTML = JSON.parse(data);
 }

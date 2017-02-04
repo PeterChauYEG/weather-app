@@ -41,7 +41,7 @@ function geoSuccess(pos) {
 
 // on error
 function GeoError(err) {
-	RenderData("error");
+	RenderData({"error": "No Data Received"});
 }
 
 // get weather data via http GET
@@ -64,12 +64,14 @@ function getWeather(latitude, longitude) {
 		if (request.status >= 200 && request.status < 400) {
 
 			// success
-			RenderData(response);
+			renderWeatherData(response);
+
 		} else {
 
 			// server error
 			RenderData(`Error: ${response}`);
 		}
+		return
 	}
 
 	request.onerror = function() {
@@ -83,7 +85,12 @@ function getWeather(latitude, longitude) {
 }
 
 function getWeatherIconAndBG(weatherId) {
-	console.log("weatherID: ", weatherId);
+	// OpenWeather conveniently provides weather ID codes
+	// to categorize weather events/groups.
+
+	// We will use these ID codes to conditionally apply
+	// unique icons and background images for improved
+	// user experience.
 
 	const weatherIconElement = document.getElementById('weatherIcon');
 	const body = document.body;
@@ -136,20 +143,28 @@ function getWeatherIconAndBG(weatherId) {
 	return;
 }
 
-function renderWeatherData(weatherData) {
+function renderWeatherData(data) {
+	// Render the retreived data to the HTML DOM
+
+	const weatherData = JSON.parse(data);
+
+
+	// Get your HTML elements from the DOM in order to insert data
 	const locationName = document.getElementById('locationName');
 	const currentTemp = document.getElementById('currentTemp');
 	const temp_max = document.getElementById('temp_max');
 	const temp_min = document.getElementById('temp_min');
 	const description = document.getElementById('description');
 
-
+	// Insert data to DOM elements
 	locationName.innerHTML = weatherData.name;
-	currentTemp.innerHTML = weatherData.main.temp;
+	currentTemp.innerHTML = Math.round(weatherData.main.temp) || weatherData.error;
 	temp_max.innerHTML = weatherData.main.temp_max;
 	temp_min.innerHTML = weatherData.main.temp_min;
 	description.innerHTML = weatherData.weather[0].description;
-	console.log("weatherIcon: ", weatherIcon.classList);
+
+	// Apply unique weather icons and background styles
+	// based on various weather conditions
 	getWeatherIconAndBG(weatherData.weather[0].id);
 
 	return;
@@ -161,11 +176,7 @@ function RenderData(data) {
 	// grab the target element
 	let dataElement = document.getElementById("data");
 
-	// const weatherData = JSON.stringify(data);
-	const weatherData = JSON.parse(data);
-
 	// now modify the element's inner html
 	// append the data variable
-	// dataElement.innerHTML = data;
-	return renderWeatherData(weatherData);
+	dataElement.innerHTML = data;
 }

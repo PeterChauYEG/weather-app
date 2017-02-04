@@ -23,15 +23,6 @@ body {
 	text-align: center;
 }
 
-.tempBox {
-  margin: 20px 0px 40px;
-}
-
-#moreDetes {
-	padding: 30px 0px;
-  border-top: 1px solid white;
-}
-
 #locationName {
 		font-size: 20px;
 		border-bottom: 1px solid white;
@@ -39,6 +30,10 @@ body {
 		text-transform: uppercase;
 		letter-spacing: 4px;
 		font-weight: 100;
+}
+
+.tempBox {
+  margin: 20px 0px;
 }
 
 #currentTemp {
@@ -49,6 +44,13 @@ body {
 #weatherIcon {
 	font-size: 100px;
   margin-right: 30px;
+	position: relative;
+  top: -20px;
+}
+
+#moreDetes {
+	padding: 30px 0px;
+  border-top: 1px solid white;
 }
 
 #temp_max, #temp_min {
@@ -57,14 +59,20 @@ body {
 	margin: 0px 10px;
 }
 
-#temp_max {
-	font-weight: bold;
-}
-
 #description {
 	text-transform: uppercase;
 	margin-bottom: 10px;
 }
+
+#temp_max {
+	font-weight: bold;
+}
+
+#temp_min {
+	font-weight: 100;
+}
+
+
 
 
 /* Background colors */

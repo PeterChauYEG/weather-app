@@ -109,7 +109,7 @@ function getWeather(cityName, countryCode) {
 	let request = new XMLHttpRequest();
 
 	// define endpoint
-	const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryCode}&APPID=522a1061f190c2aecc329e7f75a1fea9&units=metric`;
+	const endpoint = `http://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryCode}&APPID=522a1061f190c2aecc329e7f75a1fea9&units=metric`;
 
 	request.open('GET', endpoint, true);
 

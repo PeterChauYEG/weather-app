@@ -8,7 +8,7 @@ const locations = [
 	},
 ]
 
-const initalWeather = {
+const initialWeather = {
 	main: {
 		temp: '-5',
 		temp_max: 'HIGH',
@@ -38,7 +38,7 @@ function init(locations) {
 	const {cityName, countryCode} = locations[0]
 	
 	// render fake date initial state
-	renderWeatherData(initalWeather)
+	renderWeatherData(initialWeather)
 	
 	// get the weather
 	getWeather(cityName, countryCode)

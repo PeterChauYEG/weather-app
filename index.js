@@ -8,18 +8,17 @@ const locations = [
 	},
 ]
 
-const fakeWeather = {
-	error: 'error',
+const initalWeather = {
 	main: {
-		temp: 'temp',
-		temp_max: 'temp_max',
-		temp_min: 'temp_min',
+		temp: '-5',
+		temp_max: 'HIGH',
+		temp_min: 'LOW',
 	},
-	name: 'name',
+	name: 'Current Location',
 	weather: [
 		{
-			description: 'description',
-			id: 601,
+			description: 'Maybe rainy, maybe sunny',
+			id: 200,
 		},
 	],
 }
@@ -39,7 +38,7 @@ function init(locations) {
 	const {cityName, countryCode} = locations[0]
 	
 	// render fake date initial state
-	renderWeatherData(fakeWeather)
+	renderWeatherData(initalWeather)
 	
 	// get the weather
 	getWeather(cityName, countryCode)
@@ -158,7 +157,7 @@ function getWeather(cityName, countryCode) {
 function RenderDataById(data, id) {
 
 	// grab the target element
-	const element = document.getElementById(id)
+	let element = document.getElementById(id)
 
 	// modify the element's inner html
 	element.innerHTML = data
@@ -246,10 +245,3 @@ function getWeatherIconAndBG(weatherId) {
 	// return the result
 	return result
 }
-
-
-// -------------------- MAIN PROGRAM
-
-// initialize on page onload.
-window.onload = init(locations)
-

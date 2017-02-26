@@ -7,20 +7,20 @@
     <title>Weather App</title>
   </head>
 
-  <body>
+  <body onload="init(locations)">
     <div class="gradient">
       <div class="main">
-        <div id="locationName">Current Location</div>
+        <div id="locationName">Name</div>
         <div class="tempBox">
           <i id="weatherIcon" class="wi wi-day-hail"></i>
-          <span id="currentTemp">-5</span>
+          <span id="currentTemp">Temp</span>
         </div>
         <div id="moreDetes">
           <div id="description">
-            Maybe rainy, maybe sunny
+            Description
           </div>
-          <div id="temp_max">High</div>
-          <div id="temp_min">Low</div>
+          <div id="temp_max">temp_max</div>
+          <div id="temp_min">temp_min</div>
         </div>
         <p id="data"></p>
       </div>

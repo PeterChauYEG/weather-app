@@ -24,16 +24,16 @@ body {
 }
 
 #locationName {
-		font-size: 20px;
-		border-bottom: 1px solid white;
-    padding: 30px 0px;
-		text-transform: uppercase;
-		letter-spacing: 4px;
-		font-weight: 100;
+	font-size: 20px;
+	border-bottom: 1px solid white;
+	padding: 30px 0px;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	font-weight: 100;
 }
 
 .tempBox {
-  margin: 20px 0px;
+	margin: 20px 0px;
 }
 
 #currentTemp {
@@ -43,14 +43,14 @@ body {
 
 #weatherIcon {
 	font-size: 100px;
-  margin-right: 30px;
+	margin-right: 30px;
 	position: relative;
-  top: -20px;
-}
+	top: -20px;
+	}
 
 #moreDetes {
 	padding: 30px 0px;
-  border-top: 1px solid white;
+	border-top: 1px solid white;
 }
 
 #temp_max, #temp_min {

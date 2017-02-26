@@ -1,59 +1,116 @@
-// define some test data
-let data = "This is some test data";
+// -------------------- DATA DEFINITIONS
 
-// define geolocation options
-const geoOptions = {
-	enableHighAccuracy: true,
-	timeout: 10000, // in ms so 10 seconds
-	maximumAge: 0
-};
+// location data
+const locations = [
+	{
+		cityName: 'Edmonton',
+		countryCode: 'ca',
+	},
+]
 
-init();
-
-// we are going to pass functions into functions
-// we start by getting the geolocation
-// then we get the weather using the previous
-// finally
-function init() {
-  // Get the location
-  getGeolocation(geoOptions);
+const fakeWeather = {
+	error: 'error',
+	main: {
+		temp: 'temp',
+		temp_max: 'temp_max',
+		temp_min: 'temp_min',
+	},
+	name: 'name',
+	weather: [
+		{
+			description: 'description',
+			id: 601,
+		},
+	],
 }
 
-// get the user's geolocation
-// takes options object
-function getGeolocation(options) {
-	// make sure geolocation is supported
-	if (!navigator.geolocation) {
-		return "Geolocation is not supported by your browser";
-	}
+// -------------------- MAIN FUNCTIONS
 
-	// get the geolocation
-	navigator.geolocation.getCurrentPosition(geoSuccess, GeoError, options);
-}
-
-// on success
-function geoSuccess(pos) {
-	// RenderData(`Latitude: ${pos.coords.latitude}, Longitude: ${pos.coords.longitude}`);
-
+/**
+ * initialization function to be run on page load.
+ * 
+ * 
+ * @param 	[object]	locations	set of cityNames and countryCodes
+ * @return	null
+ */
+function init(locations) {
+	
+	// deconstruct location data
+	const {cityName, countryCode} = locations[0]
+	
+	// render fake date initial state
+	renderWeatherData(fakeWeather)
+	
 	// get the weather
-	getWeather(pos.coords.latitude, pos.coords.longitude);
+	getWeather(cityName, countryCode)
+
 }
 
-// on error
-function GeoError(err) {
-	RenderData({"error": "No Data Received"});
+/**
+ * renders weather data.
+ * 
+ * @param  object  data  weather data from api
+ * @return null
+ */
+function renderWeatherData(data) {
+	
+	// convert string response into JSON
+	const weatherData = data;
+	
+	// decontruct response 
+	const {
+		main: {
+			temp,
+			temp_max,
+			temp_min,
+		},
+		name,
+		weather,
+	} = weatherData
+	
+	const { 
+		description,
+		id,
+	} = weather[0]
+	
+	// render data into elements by id
+	RenderDataById(name, 'locationName');
+	RenderDataById(temp, 'currentTemp');
+	RenderDataById(temp_max, 'temp_max');
+	RenderDataById(temp_min, 'temp_min');
+	RenderDataById(description, 'description');
+
+
+	// get weather icons and background classNames
+	const {
+		bodyColor,
+		weatherIcon,
+	} = getWeatherIconAndBG(id);
+
+	// based on various weather conditions
+	// render icon and body color
+	ChangeClassNameById(weatherIcon, 'weatherIcon')
+	document.body.className = bodyColor;
+
+	return;
 }
 
-// get weather data via http GET
-// takes latitude and longitude
-// finally we render it onto the screen
-function getWeather(latitude, longitude) {
+
+// -------------------- API FUNCTIONS
+
+/**
+ * get weather data via http GET.
+ * 
+ * @param 	string	cityName name of a city
+ * @param 	string	countryCode a ISO 3166 country code
+ * @return	null
+ */
+function getWeather(cityName, countryCode) {
 	// create request
 	let request = new XMLHttpRequest();
 
 	// define endpoint
-	const endpoint = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=3e3fc59ab891338262ec5c0baf66faca&units=metric`;
-	// const endpoint = `http://api.openweathermap.org/data/2.5/weather?q=Edmonton,ca&APPID=3e3fc59ab891338262ec5c0baf66faca&units=metric`;
+	const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryCode}&APPID=522a1061f190c2aecc329e7f75a1fea9&units=metric`;
 
 	request.open('GET', endpoint, true);
 
@@ -64,12 +121,16 @@ function getWeather(latitude, longitude) {
 		if (request.status >= 200 && request.status < 400) {
 
 			// success
-			renderWeatherData(response);
+			// convert response into JSON
+			const data = JSON.parse(response)
+			
+			// render weather data
+			renderWeatherData(data);
 
 		} else {
 
-			// server error
-			RenderData(`Error: ${response}`);
+			// handle server error
+			RenderDataById(`Error: ${response}`, 'data');
 		}
 		return
 	}
@@ -77,13 +138,56 @@ function getWeather(latitude, longitude) {
 	request.onerror = function() {
 		const response = request.responseText;
 
-		// connection error
-		RenderData(`Error: ${response}`);
+		// handle connection error
+		RenderDataById(`Error: ${response}`, 'data');
 	}
 
 	request.send();
 }
 
+
+// -------------------- HELPER FUNCTIONS
+
+/**
+ * grabs an element by id and renders data into it
+ * 
+ * @params	string or int	data	data to be rendered
+ * @params	string				id		id of the element to be rendered into
+ * @return	null
+ */
+function RenderDataById(data, id) {
+
+	// grab the target element
+	const element = document.getElementById(id)
+
+	// modify the element's inner html
+	element.innerHTML = data
+}
+
+/**
+ * grabs an element by id and changes it's className
+ * 
+ * @params	string	className	className to be changed to
+ * @params	string	id				id of the element to be rendered into
+ * @return	null
+ */
+function ChangeClassNameById(className, id) {
+
+	// grab the target element
+	const element = document.getElementById(id)
+
+	// modify the element's inner html
+	element.className = className
+}
+
+
+/**
+ * converts a weatherId into classNames for weatherIcon and body.
+ * 
+ * @param 	int				weatherId		the id of the weather as per OpenWeather API
+ * @returns {string}	classNames	for weatherIcon and body
+ * 
+ */
 function getWeatherIconAndBG(weatherId) {
 	// OpenWeather conveniently provides weather ID codes
 	// to categorize weather events/groups.
@@ -91,12 +195,8 @@ function getWeatherIconAndBG(weatherId) {
 	// We will use these ID codes to conditionally apply
 	// unique icons and background images for improved
 	// user experience.
-
-	const weatherIconElement = document.getElementById('weatherIcon');
-	const body = document.body;
-
-	let weatherIcon = '';
 	let bodyColor = '';
+	let weatherIcon = '';
 
 	switch(true) {
 		case weatherId >= 200 && weatherId <= 232:
@@ -137,47 +237,19 @@ function getWeatherIconAndBG(weatherId) {
 			break;
 	}
 
-	weatherIconElement.className = weatherIcon;
-	body.className = bodyColor;
+	// aggergate results
+	const result = {
+		weatherIcon,
+		bodyColor,
+	}
 
-	return;
+	// return the result
+	return result
 }
 
-function renderWeatherData(data) {
-	// Render the retreived data to the HTML DOM
 
-	const weatherData = JSON.parse(data);
+// -------------------- MAIN PROGRAM
 
+// initialize on page onload.
+window.onload = init(locations)
 
-	// Get your HTML elements from the DOM in order to insert data
-	const locationName = document.getElementById('locationName');
-	const currentTemp = document.getElementById('currentTemp');
-	const temp_max = document.getElementById('temp_max');
-	const temp_min = document.getElementById('temp_min');
-	const description = document.getElementById('description');
-
-	// Insert data to DOM elements
-	locationName.innerHTML = weatherData.name;
-	currentTemp.innerHTML = Math.round(weatherData.main.temp) || weatherData.error;
-	temp_max.innerHTML = weatherData.main.temp_max;
-	temp_min.innerHTML = weatherData.main.temp_min;
-	description.innerHTML = weatherData.weather[0].description;
-
-	// Apply unique weather icons and background styles
-	// based on various weather conditions
-	getWeatherIconAndBG(weatherData.weather[0].id);
-
-	return;
-}
-
-// renders data onto the screen (#data) for testing purposes only
-// string data Takes the data you want to render
-function RenderData(data) {
-	// grab the target element
-	let dataElement = document.getElementById("data");
-
-	// now modify the element's inner html
-	// append the data variable
-
-	dataElement.innerHTML = JSON.parse(data);
-}
